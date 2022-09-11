@@ -19,11 +19,16 @@ const listTodos = `
 function App({ signOut, user }) {
 
   const [todos, setTodos] = React.useState([])
+  const [people, setPeople] = React.useState([])
 
   React.useEffect(() => {
     (async () => {
       const todoData = await API.graphql(graphqlOperation(listTodos));
       setTodos(todoData?.data?.listTodos?.items);
+
+
+      const data = await API.get('peopleapi', '/people');
+      setPeople(data.people);
     })()
   }, [])
 
@@ -31,6 +36,21 @@ function App({ signOut, user }) {
     <div className="App">
       <Heading level={1}>Hello {user.username}</Heading>
       <Button onClick={signOut}>Sign out</Button>
+
+      <div>
+        {
+          people.map((person, i) => {
+            return (
+              <div key={i}>
+                <h3>{person.name}</h3>
+                <p>{person.hair_color}</p>
+
+              </div>
+            )
+          })
+        }
+      </div>
+
 
       <div>
         {
