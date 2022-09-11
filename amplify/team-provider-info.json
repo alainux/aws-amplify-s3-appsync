@@ -18,7 +18,7 @@
       "function": {
         "peoplefunction": {
           "deploymentBucketName": "amplify-myamplifyapp-dev-141702-deployment",
-          "s3Key": "amplify-builds/peoplefunction-384a7877755754353534-build.zip"
+          "s3Key": "amplify-builds/peoplefunction-79346a5a5235566e4559-build.zip"
         }
       }
     }

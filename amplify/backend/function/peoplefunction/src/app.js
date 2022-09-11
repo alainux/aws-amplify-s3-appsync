@@ -12,6 +12,7 @@ See the License for the specific language governing permissions and limitations 
 const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+const axios = require('axios');
 
 // declare a new express app
 const app = express()
@@ -32,12 +33,20 @@ app.use(function (req, res, next) {
 
 app.get('/people', function (req, res) {
   // Add your code here
-  const people = [
-    { name: 'Nader', hair_color: 'brown' },
-    { name: 'Lilly', hair_color: 'black' },
-    { name: 'Victor', hair_color: 'blonde' },
-  ]
-  res.json({ people });
+  axios.get("https://swapi.co/api/people")
+    .then(response => {
+      const people = response.data.results;
+      res.json({
+        people,
+        error: null
+      })
+    })
+    .catch(err => {
+      res.json({
+        error: err,
+        people: null
+      })
+    })
 });
 
 app.get('/people/*', function (req, res) {
